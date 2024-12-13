@@ -1,0 +1,37 @@
+{
+    "Comment": "Statemachine for image classification",
+    "StartAt": "Image Preprocessor",
+    "States": {
+      "Image Preprocessor": {
+        "Type": "Task",
+        "Resource": "arn:aws:states:::lambda:invoke",
+        "Output": "{% $states.result.Payload %}",
+        "Arguments": {
+          "FunctionName": "arn:aws:lambda:us-east-1:949492545379:function:lambda1:$LATEST",
+          "Payload": "{% $states.input %}"
+        },
+        "Next": "Predictor"
+      },
+      "Predictor": {
+        "Type": "Task",
+        "Resource": "arn:aws:states:::lambda:invoke",
+        "Output": "{% $states.result.Payload %}",
+        "Arguments": {
+          "FunctionName": "arn:aws:lambda:us-east-1:949492545379:function:lambda2:$LATEST",
+          "Payload": "{% $states.input %}"
+        },
+        "Next": "Threshold"
+      },
+      "Threshold": {
+        "Type": "Task",
+        "Resource": "arn:aws:states:::lambda:invoke",
+        "Output": "{% $states.result.Payload %}",
+        "Arguments": {
+          "FunctionName": "arn:aws:lambda:us-east-1:949492545379:function:lambda3:$LATEST",
+          "Payload": "{% $states.input %}"
+        },
+        "End": true
+      }
+    },
+    "QueryLanguage": "JSONata"
+  }
