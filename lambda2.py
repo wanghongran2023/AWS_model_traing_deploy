@@ -5,7 +5,7 @@ import boto3
 # Define the SageMaker runtime client using boto3
 sagemaker_runtime = boto3.client('sagemaker-runtime')
 
-ENDPOINT = "image-classification-2024-12-12-13-34-25-137"
+ENDPOINT = "image-classification-2024-12-13-00-26-30-982"
 
 def lambda_handler(event, context):
 
